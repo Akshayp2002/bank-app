@@ -24,10 +24,10 @@
                      <form method="POST" action="{{ route('admin.transfer') }}">
                          @csrf
                          <div class="mb-5">
-                             <label for="recipient_account_number"
-                                 class="block mb-2 text-sm font-medium text-gray-600">Recipient Account Number</label>
-                             <input type="number" name="recipient_account_number"
-                                 value="{{ old('recipient_account_number') }}" required
+                             <label for="recipient_email"
+                                 class="block mb-2 text-sm font-medium text-gray-600">Recipient Email</label>
+                             <input type="email" name="recipient_email"
+                                 value="{{ old('recipient_email') }}" required
                                  class="block w-full p-3 rounded bg-gray-200 border border-transparent focus:outline-none">
                          </div>
                          <div class="mb-5">

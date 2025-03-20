@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Account;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,26 +21,30 @@ class TransferController extends Controller
     public function transfer(Request $request)
     {
         $request->validate([
-            'amount'                   => 'required|numeric|min:0.01',
-            'recipient_account_number' => 'required|numeric|exists:accounts,account_number',
+            'amount'          => 'required|numeric|min:0.01',
+            'recipient_email' => 'required|email|exists:users,email',
         ]);
-
-        // Fetch the senders account
         $senderAccount = Auth::user()->account;
+        $recipientUser = User::where('email', $request->recipient_email)->first();
 
-        // Fetch the recipient's account
-        $recipientAccount = Account::where('account_number', $request->recipient_account_number)->first();
+        // Check if the recipient exists
+        if (!$recipientUser) {
+            return redirect()->route('admin.transfer.form')->withErrors(['error' => 'Recipient not found.']);
+        }
+
+        // Fetch the recipients account
+        $recipientAccount = $recipientUser->account;
 
         // Check if the sender has enough balance
         if ($senderAccount->balance < $request->amount) {
             return redirect()->route('admin.transfer.form')->withErrors(['error' => 'Insufficient balance for the transfer.']);
         }
 
-        // Deduct from the senders account
+        // Deduct from the sender's account
         $senderAccount->balance -= $request->amount;
         $senderAccount->save();
 
-        // Add to the recipients account
+        // Add to the recipient's account
         $recipientAccount->balance += $request->amount;
         $recipientAccount->save();
 
@@ -48,20 +53,18 @@ class TransferController extends Controller
             'user_id'     => Auth::id(),
             'type'        => 'transfer',
             'amount'      => $request->amount,
-            'receiver_id' => $recipientAccount->user_id,                                   // The user receiving the funds
-            'description' => 'Transfer to account ' . $recipientAccount->account_number,
+            'receiver_id' => $recipientAccount->user_id,
+            'description' => 'Transfer to ' . $recipientUser->email,
         ]);
 
-        // Record the recipient's transaction
+        // Record the recipients transaction
         Transaction::create([
             'user_id'     => $recipientAccount->user_id,
             'type'        => 'transfer',
             'amount'      => $request->amount,
             'receiver_id' => null,
-            'description' => 'Transfer from account ' . $senderAccount->account_number,
+            'description' => 'Transfer from ' . $senderAccount->account_number,
         ]);
-
-        // Redirect back with success message
         return redirect()->route('admin.dashboard')->with('success', 'Transfer successful!');
     }
 }
