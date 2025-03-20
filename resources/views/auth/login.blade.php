@@ -1,9 +1,9 @@
-@extends('layouts.root')
+@extends('layouts.auth')
 
-@section('content')
+@section('auth')
     <div class="container mx-auto p-8 flex">
         <div class="max-w-md w-full mx-auto">
-            <h1 class="text-4xl text-center mb-12 font-thin">Bank</h1>
+            <h1 class="text-4xl text-center mb-12 font-thin">Login</h1>
 
             <!-- Error Messages -->
             @if ($errors->any())

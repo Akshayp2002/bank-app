@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Helpers\RateLimiterHelper;
 use App\Http\Controllers\Controller;
+use App\Models\Account;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -34,7 +35,6 @@ class AuthController extends Controller
             // Redirect to dashboard on successful login
             return redirect()->route('admin.dashboard')->with('success', 'Logged in successfully!');
         } catch (Exception $e) {
-            dd($e);
             return redirect()->back()->withErrors(['email' => 'Something went wrong!'])->withInput();
         }
     }
@@ -54,6 +54,10 @@ class AuthController extends Controller
                 'name'     => $request->name,
                 'email'    => $request->email,
                 'password' => Hash::make($request->password),
+            ]);
+            Account::create([
+                'user_id'        => $user->id,
+                'account_number' => rand(1000000000, 9999999999)
             ]);
 
             // Auto-login after registration

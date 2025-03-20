@@ -20,6 +20,6 @@
         @endif
     </head>
     <body class="font-sans antialiased">
-
+        @yield('root')
     </body>
 </html>
