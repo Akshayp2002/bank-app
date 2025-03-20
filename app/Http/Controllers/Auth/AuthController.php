@@ -15,18 +15,16 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
+        // Validate request
+        $request->validate([
+            'email'    => 'required|email',
+            'password' => 'required',
+        ]);
         try {
-            // Validate request
-            $request->validate([
-                'email'    => 'required|email',
-                'password' => 'required',
-            ]);
-
             // Rate Limiting: 5 requests per minute
             if ($response = RateLimiterHelper::checkLoginRateLimit($request->input('email'))) {
                 return redirect()->back()->withErrors(['email' => 'Too many login attempts. Please try again later.']);
             }
-
             // Attempt login
             if (!Auth::attempt($request->only('email', 'password'))) {
                 return redirect()->back()->withErrors(['email' => 'Invalid credentials!'])->withInput();
@@ -41,14 +39,13 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        // Validate input
+        $request->validate([
+            'name'      => 'required|string|max:255',
+            'email'     => 'required|email|unique:users,email',
+            'password'  => 'required|min:6|confirmed',
+        ]);
         try {
-            // Validate input
-            $request->validate([
-                'name'      => 'required|string|max:255',
-                'email'     => 'required|email|unique:users,email',
-                'password'  => 'required|min:6|confirmed',
-            ]);
-
             // Create User
             $user = User::create([
                 'name'     => $request->name,

@@ -40,7 +40,7 @@
             <div class="hidden md:flex items-center gap-3">
                     <span class="font-bold">{{auth()->user()->name ?? 'User'}}</span>
 
-                <form action="{{ route('logout') }}" method="POST" class="inline-block">
+                <form action="{{ route('admin.logout') }}" method="POST" class="inline-block">
                     @csrf
                     <button type="submit"
                         class="py-2 px-4 bg-blue-400 hover:bg-red-500 text-white hover:text-black rounded transition duration-300">

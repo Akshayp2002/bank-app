@@ -14,10 +14,35 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('password'),
-        ]);
+        // Array of users data
+        $usersData = [
+            [
+                'name'           => 'Admin One',
+                'email'          => 'admin1@gmail.com',
+                'password'       => 'password',
+                'account_suffix' => '9',
+            ],
+            [
+                'name'           => 'Admin Two',
+                'email'          => 'admin2@gmail.com',
+                'password'       => 'password',
+                'account_suffix' => '1',
+            ],
+        ];
+
+        foreach ($usersData as $userData) {
+            // Create User
+            $user = User::create([
+                'name' => $userData['name'],
+                'email' => $userData['email'],
+                'password' => Hash::make($userData['password']),
+            ]);
+
+            // Create the account for the user
+            $user->account()->create([
+                'account_number' => '123456789' . $userData['account_suffix'],
+                'balance' => 100,
+            ]);
+        }
     }
 }

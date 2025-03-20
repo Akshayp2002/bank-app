@@ -10,10 +10,9 @@ class StatementController extends Controller
 {
     public function accountStatement()
     {
-        // Fetch the transactions for the authenticated user, paginated (latest first)
         $transactions = Transaction::where('user_id', auth()->id())
-            ->orderBy('created_at', 'desc') // Order by latest first
-            ->paginate(10); // Paginate 10 transactions per page
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
 
         return view('admin.statement', compact('transactions'));
     }

@@ -17,7 +17,6 @@
                      <!-- Deposit Form -->
                      <form method="POST" action="{{ route('admin.deposit') }}">
                          @csrf
-
                          <div class="mb-5">
                              <label for="amount" class="block mb-2 text-sm font-medium text-gray-600">Deposit
                                  Amount</label>

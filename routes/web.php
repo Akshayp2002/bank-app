@@ -9,10 +9,11 @@ use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login');
-
+// Login
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
+// Register
 Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
@@ -35,10 +36,12 @@ Route::middleware('auth')->name('admin.')->group(function () {
     // Transfer Routes
     Route::get('/transfer', [TransferController::class, 'index'])->name('transfer.form');
     Route::post('/transfer', [TransferController::class, 'transfer'])->name('transfer');
-
+    
+    // Statements
     Route::get('/statement', [StatementController::class, 'accountStatement'])->name('statement');
+    // Logout
+    Route::post('/logout', function () {
+        Auth::logout();
+        return redirect()->route('login');
+    })->name('logout');
 });
-Route::post('/logout', function () {
-    Auth::logout();
-    return redirect()->route('login');
-})->name('logout');
