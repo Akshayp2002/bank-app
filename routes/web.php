@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Account\DepositController;
+use App\Http\Controllers\Account\StatementController;
 use App\Http\Controllers\Account\TransferController;
 use App\Http\Controllers\Account\WithdrawlController;
 use App\Http\Controllers\Admin\HomeController;
@@ -34,6 +35,8 @@ Route::middleware('auth')->name('admin.')->group(function () {
     // Transfer Routes
     Route::get('/transfer', [TransferController::class, 'index'])->name('transfer.form');
     Route::post('/transfer', [TransferController::class, 'transfer'])->name('transfer');
+
+    Route::get('/statement', [StatementController::class, 'accountStatement'])->name('statement');
 });
 Route::post('/logout', function () {
     Auth::logout();

@@ -5,7 +5,7 @@
             <!-- Left Side - Logo -->
             <div class="flex items-center space-x-4">
                 <a href="#" class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
-                    <span class="font-bold">Better Dev</span>
+                    <span class="font-bold">ABC Bank</span>
                 </a>
             </div>
 
@@ -30,10 +30,16 @@
                     class="text-gray-700 hover:bg-gray-200 px-4 py-2 rounded {{ request()->is('transfer') ? 'bg-blue-400 text-white font-bold' : '' }}">
                     Transfer
                 </a>
+                <a href="{{ route('admin.statement') }}"
+                    class="text-gray-700 hover:bg-gray-200 px-4 py-2 rounded {{ request()->is('statement') ? 'bg-blue-400 text-white font-bold' : '' }}">
+                    Statements
+                </a>
             </div>
 
             <!-- Secondary Navigation (Logout Button) -->
-            <div class="hidden md:flex items-center">
+            <div class="hidden md:flex items-center gap-3">
+                    <span class="font-bold">{{auth()->user()->name ?? 'User'}}</span>
+
                 <form action="{{ route('logout') }}" method="POST" class="inline-block">
                     @csrf
                     <button type="submit"

@@ -4,7 +4,6 @@
     <div class="container mx-auto p-8 flex">
         <div class="max-w-md w-full mx-auto">
             <h1 class="text-4xl text-center mb-12 font-thin">Register</h1>
-
             <!-- Error Messages -->
             @if ($errors->any())
                 <div class="bg-red-100 text-red-700 p-4 rounded-md mb-4">
@@ -15,7 +14,6 @@
                     </ul>
                 </div>
             @endif
-
             <!-- Success Message -->
             @if (session('success'))
                 <div class="bg-green-100 text-green-700 p-4 rounded-md mb-4">
