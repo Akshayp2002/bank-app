@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Account\DepositController;
+use App\Http\Controllers\Account\TransferController;
 use App\Http\Controllers\Account\WithdrawlController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Auth\AuthController;
@@ -19,7 +20,7 @@ Route::get('/register', function () {
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');
 Route::post('/register', [AuthController::class, 'register'])->name('register.process');
 
-Route::name('admin.')->group(function () {
+Route::middleware('auth')->name('admin.')->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
     // Deposit Routes
@@ -29,8 +30,12 @@ Route::name('admin.')->group(function () {
     // Withdrawal Routes
     Route::get('/withdrawal', [WithdrawlController::class, 'index'])->name('withdrawal.form');
     Route::post('/withdrawal', [WithdrawlController::class, 'withdrawal'])->name('withdrawal');
-    
+
     // Transfer Routes
-    Route::get('/transfer', [DepositController::class, 'transferForm'])->name('transfer.view');
-    Route::post('/transfer', [DepositController::class, 'transfer'])->name('transfer');
+    Route::get('/transfer', [TransferController::class, 'index'])->name('transfer.form');
+    Route::post('/transfer', [TransferController::class, 'transfer'])->name('transfer');
 });
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect()->route('login');
+})->name('logout');

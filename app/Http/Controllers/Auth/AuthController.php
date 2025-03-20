@@ -65,7 +65,6 @@ class AuthController extends Controller
 
             return redirect()->route('admin.dashboard')->with('success', 'Registration successful! Welcome to your dashboard.');
         } catch (Exception $e) {
-            dd($e);
             return redirect()->back()->withErrors(['email' => 'Something went wrong!'])->withInput();
         }
     }
