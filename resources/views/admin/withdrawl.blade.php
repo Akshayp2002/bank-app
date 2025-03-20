@@ -6,19 +6,19 @@
              <h1 class="text-4xl text-center mb-12 font-thin">Withdrawal</h1>
              <!-- Error Messages -->
              <x-alert-messages />
-             
+
              <div class="bg-white rounded-lg overflow-hidden shadow-2xl">
                  <div class="p-8">
                      <!-- Current Account Number and Balance -->
                      <div class="mb-5">
                          <label class="block mb-2 text-sm font-medium text-gray-600">Account Number</label>
-                         <input type="text" value="{{ $account->account_number }}" disabled
+                         <input type="text" value="{{ $account->account_number ?? "N/A" }}" disabled
                              class="block w-full p-3 rounded bg-gray-200 border border-transparent focus:outline-none">
                      </div>
 
                      <div class="mb-5">
                          <label class="block mb-2 text-sm font-medium text-gray-600">Current Balance</label>
-                         <input type="text" value="{{ $account->balance }}" disabled
+                         <input type="text" value="{{ $account->balance ?? "N/A" }}" disabled
                              class="block w-full p-3 rounded bg-gray-200 border border-transparent focus:outline-none">
                      </div>
 

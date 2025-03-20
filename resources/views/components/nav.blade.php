@@ -38,7 +38,7 @@
 
             <!-- Secondary Navigation (Logout Button) -->
             <div class="hidden md:flex items-center gap-3">
-                    <span class="font-bold">{{auth()->user()->name ?? 'User'}}</span>
+                <span class="font-bold">{{ auth()->user()->name ?? 'User' }}</span>
 
                 <form action="{{ route('admin.logout') }}" method="POST" class="inline-block">
                     @csrf
@@ -66,20 +66,27 @@
     <!-- Mobile Menu -->
     <div class="mobile-menu hidden md:hidden bg-gray-100 py-4">
         <a href="{{ route('admin.dashboard') }}"
-            class="block py-2 px-6 text-gray-700 hover:bg-gray-200 {{ Request::is('/dashboard') ? 'bg-blue-300 font-bold' : '' }}">
+            class="text-gray-700 hover:bg-gray-200 px-4 py-2 rounded {{ request()->is('dashboard') ? 'bg-blue-400 text-white font-bold' : '' }}">
             Home
         </a>
+
         <a href="{{ route('admin.deposit.form') }}"
-            class="block py-2 px-6 text-gray-700 hover:bg-gray-200 {{ Request::is('/deposit') ? 'bg-gray-300 font-bold' : '' }}">
+            class="text-gray-700 hover:bg-gray-200 px-4 py-2 rounded {{ request()->is('deposit') ? 'bg-blue-400 text-white font-bold' : '' }}">
             Deposit
         </a>
+
         <a href="{{ route('admin.withdrawal.form') }}"
-            class="block py-2 px-6 text-gray-700 hover:bg-gray-200 {{ Request::is('/withdrawal') ? 'bg-gray-300 font-bold' : '' }}">
+            class="text-gray-700 hover:bg-gray-200 px-4 py-2 rounded {{ request()->is('withdrawal') ? 'bg-blue-400 text-white font-bold' : '' }}">
             Withdraw
         </a>
+
         <a href="{{ route('admin.transfer.form') }}"
-            class="block py-2 px-6 text-gray-700 hover:bg-gray-200 {{ Request::is('/transfer') ? 'bg-gray-300 font-bold' : '' }}">
+            class="text-gray-700 hover:bg-gray-200 px-4 py-2 rounded {{ request()->is('transfer') ? 'bg-blue-400 text-white font-bold' : '' }}">
             Transfer
+        </a>
+        <a href="{{ route('admin.statement') }}"
+            class="text-gray-700 hover:bg-gray-200 px-4 py-2 rounded {{ request()->is('statement') ? 'bg-blue-400 text-white font-bold' : '' }}">
+            Statements
         </a>
     </div>
 </nav>

@@ -5,16 +5,8 @@
         <div class="max-w-md w-full mx-auto">
             <h1 class="text-4xl text-center mb-12 font-thin">Login</h1>
 
-            <!-- Error Messages -->
-            @if ($errors->any())
-                <div class="bg-red-100 text-red-700 p-4 rounded-md mb-4">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+             <!-- Error Messages -->
+             <x-alert-messages />
 
             <!-- Success Message -->
             @if (session('success'))

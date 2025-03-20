@@ -5,26 +5,12 @@
         <div class="max-w-md w-full mx-auto">
             <h1 class="text-4xl text-center mb-12 font-thin">Register</h1>
             <!-- Error Messages -->
-            @if ($errors->any())
-                <div class="bg-red-100 text-red-700 p-4 rounded-md mb-4">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <!-- Success Message -->
-            @if (session('success'))
-                <div class="bg-green-100 text-green-700 p-4 rounded-md mb-4">
-                    {{ session('success') }}
-                </div>
-            @endif
+            <x-alert-messages />
 
             <div class="bg-white rounded-lg overflow-hidden shadow-2xl">
                 <div class="p-8">
                     <form method="POST" action="{{ route('register.process') }}">
-                        @csrf <!-- CSRF Token for security -->
+                        @csrf 
 
                         <div class="mb-5">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-600">Full Name</label>
@@ -45,7 +31,8 @@
                         </div>
 
                         <div class="mb-5">
-                            <label for="password_confirmation" class="block mb-2 text-sm font-medium text-gray-600">Confirm Password</label>
+                            <label for="password_confirmation" class="block mb-2 text-sm font-medium text-gray-600">Confirm
+                                Password</label>
                             <input type="password" name="password_confirmation" required
                                 class="block w-full p-3 rounded bg-gray-200 border border-transparent focus:outline-none">
                         </div>

@@ -11,7 +11,7 @@
                      <!-- Current Account Number -->
                      <div class="mb-5">
                          <label class="block mb-2 text-sm font-medium text-gray-600">Account Number</label>
-                         <input type="text" value="{{ auth()->user()->account->account_number }}" disabled
+                         <input type="text" value="{{ auth()->user()->account->account_number ?? "N/A"}}" disabled
                              class="block w-full p-3 rounded bg-gray-200 border border-transparent focus:outline-none">
                      </div>
                      <!-- Deposit Form -->
